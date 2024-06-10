@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}letschat</title>
+
+  <!-- Tailwind CSS CDN link -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts link for Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS for the animated gradient and typing animation -->
+  <style>
+    @keyframes gradientAnimation {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .animated-gradient {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 1600% 1600%;
+      animation: gradientAnimation 15s ease infinite;
+      height: 100vh;
+    }
+
+    .wrapper {
+      height: 20vh;
+      display: grid;
+      place-items: center;
+    }
+
+    .typing-demo, .typing-signup {
+      animation: typing 10s steps(8), blink .5s step-end infinite alternate;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid;
+      font-family: 'Inter', sans-serif;
+      font-weight: 200;
+      font-size: 2em;
+    }
+
+    .typing-signup {
+      font-size: 6rem;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .typing-signup {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="animated-gradient">
+  <nav class="flex items-center justify-between px-4 py-6 bg-teal-800">
+    <!-- LetsChats -->
+    <div>
+      <a href="/" class="text-3xl text-white">letschat</a>
+    </div>
+    <!-- LogIn & SignUp -->
+    <div class="flex items-center space-x-4">
+      {% if request.user.is_authenticated %}
+          <a href="/rooms/" class="text-lg lg:text-2xl text-white hover:text-gray-200">rooms</a>
+          <a href="/logout/" class="px-5 py-2 lg:px-10 lg:py-4 rounded-3xl text-lg lg:text-2xl text-white bg-teal-600 hover:bg-teal-700">logout</a>
+      {% else %}
+          <a href="/login/" class="text-lg lg:text-2xl text-white hover:text-gray-200">login</a>
+          <a href="/signup/" class="px-5 py-2 lg:px-10 lg:py-4 rounded-3xl text-lg lg:text-2xl text-white bg-teal-600 hover:bg-teal-700">signup</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  {% block content %}
+  {% endblock %}
+
+  {% block scripts %}
+  {% endblock %}
+</body>
+
+</html>
